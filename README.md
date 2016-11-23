@@ -11,12 +11,12 @@ scrolling further.
 
 ### Pre filled static HTML table
 If you have a pre-filled table (perhaps server-side generated), it suffices to add 
-an attribute to the <table> element like this: 
+an attribute to the &lt;table&gt; element like this: 
 ```HTML
     <table ng-sticky-header>
 ```
 ### Angular filled HTML table
-When you fill your table with angular, you can add another attribute to the <table> element
+When you fill your table with angular, you can add another attribute to the &lt;table&gt; element
 so that it is possible for the directive to update it's position and size when the angular
 model has been loaded and injected into the scope. It works like this:
 ```HTML
