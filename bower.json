@@ -1,0 +1,20 @@
+{
+  "name": "angular-sticky-table-header",
+  "main": "angular-sticky-table-header.js",
+  "homepage": "https://github.com/larsjueljensen/angular-sticky-table-header",
+  "authors": [
+    "Lars Juel Jensen <lars.jensen@egretail.no>"
+  ],
+  "description": "Makes HTML table header sticky",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fetch": "^2.0.1"
+  }
+}
