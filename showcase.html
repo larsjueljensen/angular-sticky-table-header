@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Sticky Table Header</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script src="https://code.angularjs.org/1.2.16/angular.js"></script>
+    <script src="angular-sticky-table-header.js"></script>
+    <script>
+    (function () {
+
+        'use strict';
+
+        var module = angular.module('angular-sticky-table-header');
+
+        function convertResponseToObject(response) {
+            return response.json();
+        }
+
+        module.controller('controller', ['$scope', '$window', '$q', function ($scope, $window, $q) {
+            
+            var deferred = $q.defer();
+                
+            deferred.promise.then(function (res) {
+                $scope.users = res;
+            });
+            
+            $window.fetch('https://randomuser.me/api/?results=150')
+            .then(convertResponseToObject)
+            .then(function (usersResponse) {
+               deferred.resolve(usersResponse.results);
+            });
+        }]);
+        
+    }());
+    </script>
+</head>
+<body ng-app="angular-sticky-table-header" ng-controller="controller">
+    <h1>Angular Sticky Table Header</h1>
+    <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td style="text-transform:capitalize">{{user.name.title}}</td>
+                <td style="text-transform:capitalize">{{user.name.first}}</td>
+                <td style="text-transform:capitalize">{{user.name.last}}</td>
+                <td style="text-transform:capitalize">{{user.gender}}</td>
+                <td>{{user.email}}</td>
+                <td><img ng-src="{{user.picture.thumbnail}}" alt="image showing user"></td>                
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
