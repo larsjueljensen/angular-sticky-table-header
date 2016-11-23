@@ -26,4 +26,4 @@ model has been loaded and injected into the scope. It works like this:
 Feel free to report any issues you encounter.
 
 ## Disclaimer
-The directive has been for the time being been tested in Chrome.
+The directive has been for the time being been tested in Chrome and Safari.
