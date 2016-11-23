@@ -18,5 +18,10 @@ an attribute to the <table> element like this:
 When you fill your table with angular, you can add another attribute to the <table> element
 so that it is possible for the directive to update it's position and size when the angular
 model has been loaded and injected into the scope. It works like this:
-   <table ng-fixed-header ng-sticky-header-update="scopevalue">
+    <table ng-fixed-header ng-sticky-header-update="scopevalue">
     
+## Bugs
+Feel free to report any issues you encounter.
+
+## Disclaimer
+The directive has been
