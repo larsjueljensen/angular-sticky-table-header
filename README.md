@@ -7,6 +7,14 @@ the page if you scroll past the content above it. Furthermore, if you have conte
 the table and the last row slips under the header, the header will follow the last row when
 scrolling further.
 
+## Features
+
+ * Easy to use
+ * Works with multi-level headers
+ * Table can contain images
+ * There can be content both above and below the table
+ * Columns are resized fairly well
+
 ## Usage
 
 ### Pre filled static HTML table
