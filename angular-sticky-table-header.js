@@ -5,7 +5,7 @@
     
     var module = angular.module('angular-sticky-table-header', []);
     
-    module.directive('ngStickyHeader', [function () {
+    module.directive('ngStickyHeader', ['$q', '$timeout', function ($q, $timeout) {
 
         function createOuterDiv() {
             var
@@ -31,22 +31,57 @@
 
         function wrapTableInDivs(table) {
             
-            var parent = table.parentElement;
+            var
+                parent = table.parentElement,
+                nextSibling = table.nextElementSibling;
+            
             parent.removeChild(table);
 
             table.innerWrapper = createInnerDiv();
             table.outerWrapper = createOuterDiv();
             table.outerWrapper.appendChild(table.innerWrapper);
             table.innerWrapper.appendChild(table);
-            parent.appendChild(table.outerWrapper);
+            
+            if (nextSibling !== null) {
+                nextSibling.parentElement.insertBefore(table.outerWrapper, nextSibling);
+            } else {
+                parent.appendChild(table.outerWrapper);
+            }
+            
         }
         
         function hideTableHeader(table) {
             table.querySelector('thead').style.visibility = 'hidden';
         }
         
-        function makeOpaque(table) {
-            table.style.backgroundColor = 'white';
+        function isBody(element) {
+            return element.tagName === 'BODY';
+        }
+        
+        function isTransparent(element) {
+            return ['', 'transparent', 'inherit'].indexOf(element.style.backgroundColor) !== -1;
+        }
+        
+        function getOpaqueColor(element) {
+            
+            if (isBody(element)) {
+                if (isTransparent(element)) {
+                    return "white";
+                } else {
+                    return element.style.backgroundColor;
+                }
+            }
+            
+            if (isTransparent(element)) {
+                return getOpaqueColor(element.parentElement);
+            } else {
+                return element.style.backgroundColor;
+            }
+        }
+        
+        function makeOpaque(element) {
+            element.style.backgroundColor = getOpaqueColor(element);
+            element.style.opacity = 1.0;
         }
         
         function createHeaderOverlay(table) {
@@ -97,11 +132,19 @@
         
         function makeOverlayTableSticky(table, tableParent) {
             
-            function stick(style, pos) {
+            function stickToTop(style, pos) {
                 style.position = 'fixed';
                 style.top = '0px';
                 style.left = pos.left + 'px';
                 style.width = pos.width + 'px';
+            }
+            
+            function stickToBottom(style, pos) {
+                style.position = 'absolute';
+                style.top = '';
+                style.bottom = '0px';
+                style.left = '0px';
+                style.width = '100%';
             }
             
             function unstick(style) {
@@ -114,10 +157,17 @@
             function onWindowScroll(event) {
                 var
                     parentPos = tableParent.getBoundingClientRect(),
-                    isFixed = parentPos.top <= 0;
+                    wrapperPos = tableParent.parentElement.getBoundingClientRect(),
+                    overlayPos = table.getBoundingClientRect(),
+                    isStickToTopOrBottom = parentPos.top <= 0,
+                    isStickToBottom = wrapperPos.bottom < overlayPos.height;
                 
-                if (isFixed) {
-                    stick(table.style, parentPos);
+                if (isStickToTopOrBottom) {
+                    if (isStickToBottom) {
+                        stickToBottom(table.style, wrapperPos);
+                    } else {
+                        stickToTop(table.style, parentPos);
+                    }
                 } else {
                     unstick(table.style);
                 }
@@ -135,10 +185,15 @@
             
             link: function (scope, element, attrs) {
                 
-                var table = element[0];
+                var
+                    table = element[0],
+                    update = attrs.ngStickyHeaderUpdate;
+
                 
-                function resizeLater() {
-                    scope.$evalAsync(fireResizeEvent);
+                function resizeLater(value) {
+                    if (angular.isDefined(value)) {
+                        scope.$evalAsync(fireResizeEvent);
+                    }
                 }
 
                 if (table.tagName === 'TABLE') {
@@ -147,11 +202,31 @@
                     setupResizeEventsForHeaderAndColumns(table);
                     makeOverlayTableSticky(table.overlayTable, table.innerWrapper);
                     
-                    if (attrs['ngStickyHeaderUpdate']) {
-                        var update = attrs['ngStickyHeaderUpdate'];
+                    if (attrs.ngStickyHeaderUpdate) {
                         scope.$watchCollection(update, resizeLater);
+                        scope.$watchCollection(update, function (value) {
+                            
+                            function setWrapperHeight() {
+                                table.outerWrapper.style.height = table.offsetHeight + 'px';
+                            }
+                            
+                            if (angular.isDefined(value)) {
+
+                                [].forEach.call(table.querySelectorAll('img'), function (image) {
+                                    image.addEventListener('load', function (event) {
+                                        if (event.target.complete) {
+                                            setWrapperHeight();
+                                        }
+                                    });
+                                });
+                                
+                                setWrapperHeight();
+                            }
+                        });
                     }
                     
+                    
+                                                            
                     resizeLater();
                     
                 } else {

@@ -33,18 +33,37 @@
         
     }());
     </script>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body ng-app="angular-sticky-table-header" ng-controller="controller">
+    
     <h1>Angular Sticky Table Header</h1>
+
+    <ul style="margin-bottom: 20px">
+        <li>Showcase page for the angular sticky table header directive.</li>
+        <li>It is a simple to use directive that you just add as an attribute to a &lt;table&gt; element.</li>
+        <li>It can be used on tables with multi-level headers</li>
+        <li>The table can contain images</li>
+        <li>You can have content above and below</li>
+        <li>Columns are resized fairly well</li>
+    </ul>
+    <div>
     <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Picture</th>
+                <th rowspan="2">Title</th>
+                <th colspan="2">Name</th>
+                <th rowspan="2">Gender</th>
+                <th rowspan="2">Email</th>
+                <th rowspan="2">Picture</th>
+            </tr>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
             </tr>
         </thead>
         <tbody>
@@ -54,9 +73,21 @@
                 <td style="text-transform:capitalize">{{user.name.last}}</td>
                 <td style="text-transform:capitalize">{{user.gender}}</td>
                 <td>{{user.email}}</td>
-                <td><img ng-src="{{user.picture.thumbnail}}" alt="image showing user"></td>                
+                <td><img ng-src="{{user.picture.thumbnail}}" alt="image showing user" style="border: 2px outset;"></td>                
             </tr>
         </tbody>
     </table>
+    </div>
+    
+    <h2>Table data</h2>
+    The table is filled with data from <a href="https://randomuser.me/">https://randomuser.me/</a>
+
+    <h2>Copyright Notice</h2>
+    <p>
+        All randomly generated photos were hand picked from the authorized 
+        section of <a href="http://uifaces.com">UI Faces</a>. Please visit 
+        <a href="http://uifaces.com/faq">UI Faces FAQ</a> for more information 
+        regarding how you can use these faces.
+    </p>
 </body>
 </html>
