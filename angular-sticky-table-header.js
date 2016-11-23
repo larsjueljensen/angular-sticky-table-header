@@ -189,6 +189,9 @@
                     table = element[0],
                     update = attrs.ngStickyHeaderUpdate;
 
+                function setWrapperHeight() {
+                    table.outerWrapper.style.height = table.offsetHeight + 'px';
+                }
                 
                 function resizeLater(value) {
                     if (angular.isDefined(value)) {
@@ -206,9 +209,6 @@
                         scope.$watchCollection(update, resizeLater);
                         scope.$watchCollection(update, function (value) {
                             
-                            function setWrapperHeight() {
-                                table.outerWrapper.style.height = table.offsetHeight + 'px';
-                            }
                             
                             if (angular.isDefined(value)) {
 
@@ -224,9 +224,8 @@
                             }
                         });
                     }
-                    
-                    
                                                             
+                    setWrapperHeight();
                     resizeLater();
                     
                 } else {
