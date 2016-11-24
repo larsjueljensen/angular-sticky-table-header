@@ -5,7 +5,7 @@
     
     var module = angular.module('angular-sticky-table-header', []);
     
-    module.directive('ngStickyHeader', ['$q', '$interval', function ($q, $interval) {
+    module.directive('ngStickyHeader', ['$interval', function ($interval) {
 
         function createOuterDiv() {
             var
@@ -30,7 +30,6 @@
         }
 
         function wrapTableInDivs(table) {
-            
             var
                 parent = table.parentElement,
                 nextSibling = table.nextElementSibling;
@@ -209,7 +208,6 @@
                         scope.$watchCollection(update, resizeLater);
                         scope.$watchCollection(update, function (value) {
                             
-                            
                             if (angular.isDefined(value)) {
 
                                 [].forEach.call(table.querySelectorAll('img'), function (image) {
@@ -227,17 +225,12 @@
                                                             
                     setWrapperHeight();
                     resizeLater({});
-                    
                     $interval(function () { setWrapperHeight(); }, 1000);
                     
                 } else {
                     throw "ng-sticky-header attribute can only be used on <table>";
                 }
-                
             }
         };
-        
     }]);
-    
-    
 }());
