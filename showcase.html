@@ -123,11 +123,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="person in people">
-                <td style="text-transform:capitalize">{{person.name.title}}</td>
-                <td style="text-transform:capitalize">{{person.name.first}}</td>
-                <td style="text-transform:capitalize">{{person.name.last}}</td>
-                <td style="text-transform:capitalize">{{person.gender}}</td>
-                <td>{{person.email}}</td>
+                <td style="text-transform:capitalize" ng-bind="person.name.title"></td>
+                <td style="text-transform:capitalize" ng-bind="person.name.first"></td>
+                <td style="text-transform:capitalize" ng-bind="person.name.last"></td>
+                <td style="text-transform:capitalize" ng-bind="person.gender"></td>
+                <td ng-bind="person.email"></td>
                 <td><img ng-src="{{person.picture.thumbnail}}" alt="image showing person" style="border: 2px outset;"></td>                
             </tr>
         </tbody>
@@ -163,11 +163,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
-                <td>{{user.id}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.password}}</td>
-                <td>{{user.last_login_ip}}</td>
-                <td>{{user.last_accessed_url | limitTo: 50}}<span ng-if="user.last_accessed_url.length > 50">&hellip;</span></td>
+                <td ng-bind="user.id"></td>
+                <td ng-bind="user.username"></td>
+                <td ng-bind="user.password"></td>
+                <td ng-bind="user.last_login_ip"></td>
+                <td ng-bind="user.last_accessed_url | limitTo: 50"><span ng-if="user.last_accessed_url.length > 50">&hellip;</span></td>
             </tr>
         </tbody>
     </table>
