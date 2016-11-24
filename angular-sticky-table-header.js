@@ -5,7 +5,7 @@
     
     var module = angular.module('angular-sticky-table-header', []);
     
-    module.directive('ngStickyHeader', ['$q', '$timeout', function ($q, $timeout) {
+    module.directive('ngStickyHeader', ['$q', '$interval', function ($q, $interval) {
 
         function createOuterDiv() {
             var
@@ -226,7 +226,9 @@
                     }
                                                             
                     setWrapperHeight();
-                    resizeLater();
+                    resizeLater({});
+                    
+                    $interval(function () { setWrapperHeight(); }, 1000);
                     
                 } else {
                     throw "ng-sticky-header attribute can only be used on <table>";

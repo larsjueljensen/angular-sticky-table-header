@@ -13,23 +13,37 @@
 
         var module = angular.module('angular-sticky-table-header');
 
-        function convertResponseToObject(response) {
+        function responseAsJsonPromise(response) {
             return response.json();
+        }
+        
+        function loadPeople($q) {
+
+            var deferred = $q.defer();
+
+            window.fetch('https://randomuser.me/api/?results=50')
+                .then(responseAsJsonPromise)
+                .then(function (response) {
+                   deferred.resolve(response.results);
+                });
+
+            return deferred.promise;
+        }
+        
+        function loadUsers($q) {
+            return window.fetch('https://www.mockaroo.com/1f5387b0/download?count=100&key=1f20ad30').then(responseAsJsonPromise);
         }
 
         module.controller('controller', ['$scope', '$window', '$q', function ($scope, $window, $q) {
             
-            var deferred = $q.defer();
-                
-            deferred.promise.then(function (res) {
-                $scope.users = res;
+            loadPeople($q).then(function (people) {
+                $scope.people = people;
             });
             
-            $window.fetch('https://randomuser.me/api/?results=150')
-            .then(convertResponseToObject)
-            .then(function (usersResponse) {
-               deferred.resolve(usersResponse.results);
+            loadUsers($q).then(function (users) {
+               $scope.users = users; 
             });
+
         }]);
         
     }());
@@ -52,8 +66,7 @@
         <li>You can have content above and below</li>
         <li>Columns are resized fairly well</li>
     </ul>
-    <div>
-    <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
+    <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="people">
         <thead>
             <tr>
                 <th rowspan="2">Title</th>
@@ -68,27 +81,59 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users">
-                <td style="text-transform:capitalize">{{user.name.title}}</td>
-                <td style="text-transform:capitalize">{{user.name.first}}</td>
-                <td style="text-transform:capitalize">{{user.name.last}}</td>
-                <td style="text-transform:capitalize">{{user.gender}}</td>
-                <td>{{user.email}}</td>
-                <td><img ng-src="{{user.picture.thumbnail}}" alt="image showing user" style="border: 2px outset;"></td>                
+            <tr ng-repeat="person in people">
+                <td style="text-transform:capitalize">{{person.name.title}}</td>
+                <td style="text-transform:capitalize">{{person.name.first}}</td>
+                <td style="text-transform:capitalize">{{person.name.last}}</td>
+                <td style="text-transform:capitalize">{{person.gender}}</td>
+                <td>{{person.email}}</td>
+                <td><img ng-src="{{person.picture.thumbnail}}" alt="image showing person" style="border: 2px outset;"></td>                
             </tr>
         </tbody>
     </table>
-    </div>
     
-    <h2>Table data</h2>
-    The table is filled with data from <a href="https://randomuser.me/">https://randomuser.me/</a>
-
-    <h2>Copyright Notice</h2>
-    <p>
-        All randomly generated photos were hand picked from the authorized 
+    <h2>Second table</h2><p>
+        Added a second table to show that you can have more than one table on the same page.
+    </p>
+    <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
+        <thead>
+            <tr>
+                <th rowspan="2">ID</th>
+                <th colspan="2">User</th>
+                <th colspan="2">Access</th>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Last login IP</th>
+                <th>Last accessed URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
+                <td>{{user.last_login_ip}}</td>
+                <td>{{user.last_accessed_url}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Table data</h2><p>
+        The table is filled with data from <a href="https://randomuser.me/">https://randomuser.me/</a>
+    </p>
+    
+    <h2>Copyright Notice</h2><p>
+        All randomly generated photos were hand picked from the authorized
         section of <a href="http://uifaces.com">UI Faces</a>. Please visit 
         <a href="http://uifaces.com/faq">UI Faces FAQ</a> for more information 
         regarding how you can use these faces.
+    </p>
+    
+    <h2>Github</h2><p>
+        If you want to file an issue or otherwise contribute to the code, feel free to visit the 
+        <a href="https://github.com/larsjueljensen/angular-sticky-table-header">github source page</a>.
     </p>
 </body>
 </html>
