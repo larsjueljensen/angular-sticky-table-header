@@ -13,7 +13,6 @@ scrolling further.
  * Works with multi-level headers
  * Table can contain images
  * There can be content both above and below the table
- * Columns are resized fairly well
  * Can watch for angular $scope changes and resize accordingly
  
 ## Usage
