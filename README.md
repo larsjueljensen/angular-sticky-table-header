@@ -31,6 +31,9 @@ model has been loaded and injected into the scope. It works like this:
 ```HTML
     <table ng-sticky-header ng-sticky-header-update="scopevalue">
 ```    
+## Demo
+[Click here to see the directive in action](http://htmlpreview.github.io/?https://github.com/larsjueljensen/angular-sticky-table-header/blob/master/showcase.html)
+
 ## Bugs
 Feel free to report any issues you encounter.
 
