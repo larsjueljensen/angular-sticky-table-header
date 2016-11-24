@@ -36,7 +36,3 @@ Feel free to report any issues you encounter.
 
 ## Disclaimer
 The directive has for the time being been tested in Chrome and Safari.
-
-```HTML
-<iframe src="http://htmlpreview.github.io/?https://github.com/larsjueljensen/angular-sticky-table-header/blob/master/showcase.html">
-```
