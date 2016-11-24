@@ -39,13 +39,23 @@
             $scope.numPeople = 50;
             $scope.numUsers = 50;
             
+            function resetPeople() {
+                $scope.people = [];
+            }
+            
+            function resetUsers() {
+                $scope.users = [];
+            }
+            
             $scope.loadPeople = function () {
+                resetPeople();
                 loadPeople($q, $scope.numPeople).then(function (people) {
                     $scope.people = people;
                 });
             }
             
             $scope.loadUsers = function () {
+                resetUsers();
                 loadUsers($q, $scope.numUsers).then(function (users) {
                    $scope.users = users; 
                 });
@@ -93,10 +103,10 @@
     <h2>Random people</h2><p>
         This table is filled with data from <a href="https://randomuser.me/">RANDOM USER GENERATOR</a>.
     </p>
-    <p>        
+    <form ng-submit="loadPeople();">        
         <label>Number of rows to load:</label><input type="number" ng-model="numPeople"/>
-        <button ng-click="loadPeople();">Reload</button>
-    </p>
+        <input type="submit" value="Reload"/>
+    </form>    
     <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="people">
         <thead>
             <tr>
@@ -133,10 +143,10 @@
     <h2>Random system users</h2><p>
         This table is filled with data from <a href="https://www.mockaroo.com/">Mockaroo</a>.
     </p>
-    <p>        
+    <form ng-submit="loadUsers();">        
         <label>Number of rows to load:</label><input type="number" ng-model="numUsers"/>
-        <button ng-click="loadUsers();">Reload</button>
-    </p>    
+        <input type="submit" value="Reload"/>
+    </form>    
     <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
         <thead>
             <tr>
