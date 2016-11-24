@@ -9,7 +9,7 @@ scrolling further.
 
 ## Features
 
- * Simple to use. Just add <span class="pl-ent">ng-sticky-header</span> attribute to a &lt;<span class="pl-e">table</span>&gt; element.
+ * Simple to use. Just add _ng-sticky-header_ attribute to a _&lt;table&gt;_ element.
  * Works with multi-level headers
  * Table can contain images
  * There can be content both above and below the table
