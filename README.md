@@ -9,12 +9,13 @@ scrolling further.
 
 ## Features
 
- * Easy to use
+ * Simple to use. Just add <span class="pl-ent">ng-sticky-header</span> attribute to a &lt;<span class="pl-e">table</span>&gt; element.
  * Works with multi-level headers
  * Table can contain images
  * There can be content both above and below the table
  * Columns are resized fairly well
-
+ * Can watch for angular $scope changes and resize accordingly
+ 
 ## Usage
 
 ### Pre filled static HTML table
