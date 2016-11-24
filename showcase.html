@@ -52,20 +52,33 @@
         body {
             margin: 20px;
         }
+        
+        th {
+            background-color: rgb(240, 240, 255);
+            border-color: rgb(100, 100, 100) !important;
+            border-style: solid !important;
+            border-width: 1px !important;
+        }
     </style>
 </head>
 <body ng-app="angular-sticky-table-header" ng-controller="controller">
     
-    <h1>Angular Sticky Table Header</h1>
+    <h1>Angular Sticky Table Header Showcase page</h1>
 
+    <h2>Features</h2>   
     <ul style="margin-bottom: 20px">
-        <li>Showcase page for the angular sticky table header directive.</li>
         <li>It is a simple to use directive that you just add as an attribute to a &lt;table&gt; element.</li>
         <li>It can be used on tables with multi-level headers</li>
         <li>The table can contain images</li>
         <li>You can have content above and below</li>
         <li>Columns are resized fairly well</li>
     </ul>
+    
+    <a name="randompeople"></a>
+    <h2>Random people</h2><p>
+        This table is filled with data from <a href="https://randomuser.me/">RANDOM USER GENERATOR</a>.
+    </p>
+    
     <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="people">
         <thead>
             <tr>
@@ -91,10 +104,18 @@
             </tr>
         </tbody>
     </table>
-    
-    <h2>Second table</h2><p>
-        Added a second table to show that you can have more than one table on the same page.
+        
+    <h3>Copyright Notice</h3><p>
+        All randomly generated photos were hand picked from the authorized
+        section of <a href="http://uifaces.com">UI Faces</a>. Please visit 
+        <a href="http://uifaces.com/faq">UI Faces FAQ</a> for more information 
+        regarding how you can use these faces.
     </p>
+    
+    <h2>Random system users</h2><p>
+        This table is filled with data from <a href="https://www.mockaroo.com/">Mockaroo</a>.
+    </p>
+    
     <table class="table table-hover table-condensed table-bordered table-striped" ng-sticky-header ng-sticky-header-update="users">
         <thead>
             <tr>
@@ -119,18 +140,7 @@
             </tr>
         </tbody>
     </table>
-    
-    <h2>Table data</h2><p>
-        The table is filled with data from <a href="https://randomuser.me/">https://randomuser.me/</a>
-    </p>
-    
-    <h2>Copyright Notice</h2><p>
-        All randomly generated photos were hand picked from the authorized
-        section of <a href="http://uifaces.com">UI Faces</a>. Please visit 
-        <a href="http://uifaces.com/faq">UI Faces FAQ</a> for more information 
-        regarding how you can use these faces.
-    </p>
-    
+        
     <h2>Github</h2><p>
         If you want to file an issue or otherwise contribute to the code, feel free to visit the 
         <a href="https://github.com/larsjueljensen/angular-sticky-table-header">github source page</a>.
