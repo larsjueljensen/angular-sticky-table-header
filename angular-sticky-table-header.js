@@ -83,6 +83,10 @@
             element.style.opacity = 1.0;
         }
         
+        function setZOrder(behind, over) {
+            over.style.zIndex = (behind.style.zIndex || 0) + 1;
+        }
+        
         function createHeaderOverlay(table) {
             var
                 overlayTable = table.cloneNode(false),
@@ -93,6 +97,7 @@
             table.overlayTable = overlayTable;
             hideTableHeader(table);
             makeOpaque(overlayTable);
+            setZOrder(table, overlayTable);
         }
         
         function makeSameSize(src, dest) {
