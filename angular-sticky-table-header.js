@@ -178,6 +178,7 @@
             }
             
             window.addEventListener('scroll', onWindowScroll);
+            window.addEventListener('touchmove', onWindowScroll);
             onWindowScroll();
         }
         
