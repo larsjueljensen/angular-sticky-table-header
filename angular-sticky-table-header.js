@@ -184,7 +184,7 @@
             });
             document.addEventListener('touchmove', function () {
                 document.body.style.backgroundColor = '#eab9b9';
-            });
+            }, false);
             document.addEventListener('touchend', function () {
                 document.body.style.backgroundColor = 'white';
             });
