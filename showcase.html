@@ -21,7 +21,8 @@
 
             var deferred = $q.defer();
 
-            window.fetch('https://randomuser.me/api/?results=' + numPeople)
+            window
+                .fetch('https://randomuser.me/api/?results=' + numPeople)
                 .then(responseAsJsonPromise)
                 .then(function (response) {
                    deferred.resolve(response.results);
@@ -31,7 +32,9 @@
         }
         
         function loadUsers($q, numUsers) {
-            return window.fetch('https://www.mockaroo.com/1f5387b0/download?count=' + numUsers + '&key=1f20ad30').then(responseAsJsonPromise);
+            return window
+                .fetch('https://www.mockaroo.com/1f5387b0/download?count=' + numUsers + '&key=1f20ad30')
+                .then(responseAsJsonPromise);
         }
 
         module.controller('controller', ['$scope', '$window', '$q', function ($scope, $window, $q) {
@@ -39,23 +42,15 @@
             $scope.numPeople = 50;
             $scope.numUsers = 50;
             
-            function resetPeople() {
-                $scope.people = [];
-            }
-            
-            function resetUsers() {
-                $scope.users = [];
-            }
-            
             $scope.loadPeople = function () {
-                resetPeople();
+                $scope.people = [];
                 loadPeople($q, $scope.numPeople).then(function (people) {
                     $scope.people = people;
                 });
             }
             
             $scope.loadUsers = function () {
-                resetUsers();
+                $scope.users = [];
                 loadUsers($q, $scope.numUsers).then(function (users) {
                    $scope.users = users; 
                 });
