@@ -177,10 +177,18 @@
                 }
             }
             
+            function onTouchStart(event) {
+                table.fakeScrollInterval = $interval(onWindowScroll, 20);
+            }
+            
+            function onTouchStop(event) {
+                $interval.cancel(table.fakeScrollInterval);
+            }
+            
             window.addEventListener('scroll', onWindowScroll);
-            document.addEventListener('touchmove', onWindowScroll);
-            document.addEventListener('touchstart', onWindowScroll);
-            document.addEventListener('gesturechange', onWindowScroll);
+            document.addEventListener('touchstart', onTouchStart);
+            document.addEventListener('touchend', onTouchStop);
+            document.addEventListener('touchcancel', onTouchStop);
             onWindowScroll();
         }
         
