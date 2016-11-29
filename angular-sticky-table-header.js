@@ -179,15 +179,8 @@
             
             window.addEventListener('scroll', onWindowScroll);
             document.addEventListener('touchmove', onWindowScroll);
-            document.addEventListener('touchstart', function () {
-                document.body.style.backgroundColor = 'floralwhite';
-            });
-            document.addEventListener('touchmove', function () {
-                document.body.style.backgroundColor = '#eab9b9';
-            }, false);
-            document.addEventListener('touchend', function () {
-                document.body.style.backgroundColor = 'white';
-            });
+            document.addEventListener('touchstart', onWindowScroll);
+            document.addEventListener('gesturechange', onWindowScroll);
             onWindowScroll();
         }
         
